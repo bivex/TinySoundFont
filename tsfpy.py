@@ -155,6 +155,13 @@ _lib.tsf_bank_note_off.restype = ctypes.c_int
 
 _lib.tsf_note_off_all.argtypes = [tsf_handle]
 _lib.tsf_channel_note_off.argtypes = [tsf_handle, ctypes.c_int, ctypes.c_int]
+_lib.tsf_channel_note_on.argtypes = [
+    tsf_handle,
+    ctypes.c_int,
+    ctypes.c_int,
+    ctypes.c_float,
+]
+_lib.tsf_channel_note_on.restype = ctypes.c_int
 _lib.tsf_channel_sounds_off_all.argtypes = [tsf_handle, ctypes.c_int]
 _lib.tsf_channel_note_off_all.argtypes = [tsf_handle, ctypes.c_int]
 
@@ -462,6 +469,14 @@ class TinySoundFont:
     def note_off_all(self) -> None:
         """Stop all notes with the release phase applied."""
         _lib.tsf_note_off_all(self._handle)
+
+    def channel_note_on(self, channel: int, key: int, velocity: float) -> bool:
+        """
+        Start playing a note on a channel.
+
+        The channel's preset must be set first via ``channel_set_preset_index``.
+        """
+        return bool(_lib.tsf_channel_note_on(self._handle, channel, key, velocity))
 
     def channel_note_off(self, channel: int, key: int) -> None:
         """Stop a specific note on a given channel."""

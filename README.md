@@ -28,6 +28,19 @@ The API documentation can be found on [top of the library source code](https://g
 
 There are also [examples available](https://github.com/schellingb/TinySoundFont/tree/master/examples) which come with a sample SoundFont file and build and play sound on Win32, Win64, Linux and MacOSX with no further dependencies.
 
+## Tests
+
+A C++ test suite for the public API lives in [`tests/`](./tests). It uses a
+self-contained harness (no external test framework) so it builds the same way
+as the rest of the project.
+
+```sh
+./tests/build.sh                                        # build + run with the bundled fixture
+./tests/build.sh /path/to/your.sf2                      # run with a custom SoundFont
+CXX=g++ ./tests/build.sh                                # override the compiler
+```
+
+
 ## Dependencies
 
 C standard libraries for fopen, math and malloc (can be removed by providing custom functions with #defines).
